@@ -2,9 +2,6 @@
 pragma solidity >= 0.5.0 < 0.7.0;
 
 contract PiggyBank {
-  string public name;
-
-  constructor(string memory _name) public {
-    name = _name;
+  constructor() public {
   }
 }
