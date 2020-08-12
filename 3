@@ -137,7 +137,7 @@ contract('Piggy Bank', (accounts) => {
         to: piggyBank.address,
         value: web3.utils.toWei('0'),
       }))
-        .to.be.eventually.rejectedWith('You are not the rightful owner');
+        .to.be.eventually.rejected;
     });
   });
 });
