@@ -1,29 +1,24 @@
-# PiggyBank
-Repositorio de ejemplo de cómo crear un contrato inteligente para el caso de uso Alcancia
+# piggybank
 
-## Usar este repo
-Clone el repositorio
-
-```bash
-$ git clone git@github.com:mesirendon/piggybank.git
+## Project setup
+```
+npm install
 ```
 
-### Dependencias
-Para verificar los casos de pruebas garantice tener instalado globalmente estos paquetes: `ganache-cli` y `truffle`.
-
-```bash
-$ npm i -g ganache-cli truffle
+### Compiles and hot-reloads for development
+```
+npm run serve
 ```
 
-### Probar
-Es necesario tener una cadena de bloques virtual correndo, en una consola ejecute `ganache-cli`.
-
-```bash
-$ ganache-cli
+### Compiles and minifies for production
+```
+npm run build
 ```
 
-Para correr las pruebas en otra consola ejecute:
-
-```bash
-$ truffle test
+### Lints and fixes files
 ```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
