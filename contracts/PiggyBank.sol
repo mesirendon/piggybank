@@ -3,7 +3,7 @@ pragma solidity >= 0.5.0 < 0.7.0;
 
 contract PiggyBank {
   string public name;
-  address payable owner;
+  address payable public owner;
   mapping(address => Saving) savings;
 
   struct Saving {

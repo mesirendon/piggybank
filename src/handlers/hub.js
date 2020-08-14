@@ -42,4 +42,30 @@ export default class Hub {
         .catch(reject);
     });
   }
+
+  transferOwnership(piggyBankAddress, newOwner) {
+    return new Promise((resolve, reject) => {
+      const transferOwnershipSignature = this.instance.methods.transferOwnership(
+        piggyBankAddress,
+        newOwner,
+      );
+      Vue.web3.eth.getAccounts()
+        .then(([from]) => Promise.all([
+          from,
+          transferOwnershipSignature.estimateGas({ from }),
+        ]))
+        .then(([from, gas]) => transferOwnershipSignature.send({ from, gas }))
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  piggies(idx) {
+    return new Promise((resolve, reject) => {
+      Vue.web3.eth.getAccounts()
+        .then(([from]) => this.instance.methods.piggies(idx).call({ from }))
+        .then(resolve)
+        .catch(reject);
+    });
+  }
 }

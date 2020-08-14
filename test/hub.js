@@ -14,6 +14,7 @@ contract('Hub', (accounts) => {
     alice,
     bob,
     charlie,
+    dean,
     eva,
   ] = accounts;
   describe('Deploying hub', () => {
@@ -114,6 +115,45 @@ contract('Hub', (accounts) => {
           expect(bobPiggy2).to.eq(bobMarranito2);
           expect(charliePiggy1).to.eq(charlieMarranito1);
         })
+    });
+    it('should register the ownership transfer from one user to another', () => {
+      return Promise.all([
+        Hub.deployed(),
+        PiggyBank.new('Marranito', {from: eva}),
+        PiggyBank.new('Marranito', {from: dean}),
+      ])
+      .then(([ hub, ma, mb ]) => Promise.all([
+        hub,
+        ma,
+        mb,
+        hub.addPiggyBank(ma.address, {from: eva}),
+        hub.addPiggyBank(mb.address, {from: dean}),
+      ]))
+      .then(([ hub, ma, mb ]) => Promise.all([
+        hub,
+        ma,
+        mb,
+        mb.setOwner(eva, {from: dean}),
+      ]))
+      .then(([ hub, ma, mb ]) => Promise.all([
+        hub,
+        ma,
+        mb,
+        hub.transferOwnership(mb.address, eva, {from: dean}),
+      ]))
+      .then(([hub, ma, mb]) => Promise.all([
+        hub,
+        ma,
+        mb,
+        hub.piggyBanks({from: eva}),
+        hub.piggyBanks({from: dean}),
+        hub.piggies(0, {from: dean}),
+      ]))
+      .then(([ hub, ma, mb, pba, pbb, pbbc ]) => {
+        expect(pba.toNumber()).to.eq(2);
+        expect(pbb.toNumber()).to.eq(1);
+        console.log(pbbc);
+      })
     });
   });
 });

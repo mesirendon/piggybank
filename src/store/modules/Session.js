@@ -10,6 +10,7 @@ if (window.ethereum) {
 
 const state = {
   account: null,
+  piggyBanks: [],
 };
 
 const actions = {
@@ -19,6 +20,9 @@ const actions = {
         commit(constants.SESSION_SET_PROPERTY, { account });
       });
   },
+  [constants.SESSION_CLEAR_PIGGY_BANKS]: ({ commit }) => {
+    commit(constants.SESSION_SET_PROPERTY, { piggyBanks: [] });
+  },
 };
 
 const mutations = {
@@ -26,6 +30,10 @@ const mutations = {
   [constants.SESSION_SET_PROPERTY]: (state, data) => {
     const [[property, value]] = Object.entries(data);
     state[property] = value;
+  },
+  // eslint-disable-next-line no-shadow
+  [constants.SESSION_SET_PIGGY_BANKS]: (state, pbs) => {
+    state.piggyBanks = pbs;
   },
 };
 

@@ -20,4 +20,17 @@ contract Hub {
   function piggies(uint _idx) public view returns(address) {
     return pgs[msg.sender][_idx];
   }
+
+  function transferOwnership(address _pb, address _newOwner) public {
+    address[] memory addresses = pgs[msg.sender];
+    for(uint i = 0; i < addresses.length; i++) {
+      if (addresses[i] == _pb) {
+        delete addresses[i];
+        break;
+      }
+    }
+    pgs[_newOwner].push(_pb);
+    delete pgs[msg.sender];
+    pgs[msg.sender] = addresses;
+  }
 }
