@@ -5,6 +5,7 @@ export default class PiggyBank {
   constructor(address) {
     this.internalAddress = address;
     this.instance = new Vue.web3.eth.Contract(PiggyBankContract.abi, address);
+    this.ws = new Vue.ws.eth.Contract(PiggyBankContract.abi, address);
   }
 
   get address() {
@@ -36,6 +37,12 @@ export default class PiggyBank {
         .then(resolve)
         .catch(reject);
     });
+  }
+
+  get events() {
+    return {
+      deposit: (cb) => this.ws.events.Deposit({ fromBlock: 0 }, cb),
+    };
   }
 
   deposit(amount) {

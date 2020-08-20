@@ -10,6 +10,8 @@ import Hub from './handlers/hub';
 // eslint-disable-next-line no-multi-assign
 Vue.prototype.$web = Vue.web3 = new Web3(Web3.givenProvider || 'http://127.0.0.1:8545');
 // eslint-disable-next-line no-multi-assign
+Vue.prototype.$ws = Vue.ws = new Web3('ws://127.0.0.1:8545');
+// eslint-disable-next-line no-multi-assign
 Vue.prototype.$hub = Vue.hub = new Hub('0xCfEB869F69431e42cdB54A4F4f105C19C080A601');
 
 sync(store, router);

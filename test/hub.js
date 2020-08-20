@@ -152,7 +152,6 @@ contract('Hub', (accounts) => {
       .then(([ hub, ma, mb, pba, pbb, pbbc ]) => {
         expect(pba.toNumber()).to.eq(2);
         expect(pbb.toNumber()).to.eq(1);
-        console.log(pbbc);
       })
     });
   });

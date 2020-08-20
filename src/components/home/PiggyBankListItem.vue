@@ -27,7 +27,7 @@ export default {
       balance: null,
     };
   },
-  mounted() {
+  created() {
     this.piggyBank = new PiggyBank(this.address);
     this.piggyBank.eventualName
       .then((name) => {
@@ -36,6 +36,15 @@ export default {
     this.piggyBank.eventualBalance
       .then((balance) => {
         this.balance = balance;
+      });
+    const self = this;
+    this.piggyBank.events.deposit()
+      .on('data', () => {
+        self.piggyBank.eventualBalance
+          .then((balance) => {
+            console.log(balance);
+            self.balance = balance;
+          });
       });
   },
 };
