@@ -11,6 +11,8 @@ contract PiggyBank {
     uint times;
   }
 
+  event Deposit(address indexed _from, uint _value);
+
   constructor(string memory _name) public {
     name = _name;
     owner = msg.sender;
@@ -25,6 +27,7 @@ contract PiggyBank {
     Saving storage saving = savings[msg.sender];
     saving.totalAmount += msg.value;
     saving.times += 1;
+    emit Deposit(msg.sender, msg.value);
   }
 
   function withdraw() public onlyOwner {
@@ -47,5 +50,6 @@ contract PiggyBank {
 
   function() external payable {
     if(msg.value == 0) withdraw();
+    else emit Deposit(msg.sender, msg.value);
   }
 }
